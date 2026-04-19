@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Shaheen & Ingie</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@200;300;400;500&family=Cairo:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --ivory:#F4EDD8; --gold:#C9A14A; --gold-l:#E4C16B; --gold-d:#8F6F2A;
@@ -29,6 +29,10 @@ body{font-family:var(--serif);background:var(--navy-d);color:var(--ivory);overfl
 
 /* ── audio button ── */
 #abtn{position:fixed;top:clamp(10px,2vh,16px);right:clamp(10px,2vw,16px);z-index:50;width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,161,74,.45);background:rgba(10,18,38,.75);backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+/* ── language button ── */
+#lbtn{position:fixed;top:clamp(10px,2vh,16px);right:clamp(65px,calc(2vw + 52px),72px);z-index:50;width:42px;height:42px;border-radius:50%;border:1px solid rgba(201,161,74,.45);background:rgba(10,18,38,.75);backdrop-filter:blur(8px);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Cairo',sans-serif;font-size:18px;font-weight:500;color:var(--gold-l);transition:all .3s;}
+#lbtn:hover{border-color:var(--gold-l);background:rgba(10,18,38,.95);}
 
 /* ── enter overlay ── */
 #overlay{position:fixed;inset:0;z-index:100;background:rgba(5,8,16,.94);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:center;padding:clamp(1rem,5vw,2.5rem);}
@@ -172,29 +176,31 @@ body{font-family:var(--serif);background:var(--navy-d);color:var(--ivory);overfl
   <svg id="aoff" viewBox="0 0 24 24" fill="none" stroke="#E4C16B" stroke-width="1.3" width="18" height="18"><path d="M4 9v6h4l5 4V5L8 9H4z"/><line x1="17" y1="9" x2="22" y2="14"/><line x1="22" y1="9" x2="17" y2="14"/></svg>
 </button>
 
+<button id="lbtn" aria-label="Language">ع</button>
+
 <div id="overlay">
   <div class="ov-inner">
     <svg class="ov-ring" viewBox="0 0 52 52" fill="none" stroke="#C9A14A" stroke-width="1">
       <circle cx="26" cy="26" r="22" opacity=".5"/><circle cx="26" cy="26" r="15" opacity=".5"/><circle cx="26" cy="26" r="8" opacity=".6"/><circle cx="26" cy="26" r="2.5" fill="#C9A14A"/>
     </svg>
-    <div class="ov-title">A woven invitation</div>
-    <div class="ov-sub">Best with sound</div>
-    <button class="ebtn primary" id="esound">Enter with sound</button>
-    <button class="ebtn" id="esilent">Enter in silence</button>
+    <div class="ov-title" data-i18n="ov-title">A woven invitation</div>
+    <div class="ov-sub" data-i18n="ov-sub">Best with sound</div>
+    <button class="ebtn primary" id="esound" data-i18n="ebtn-0">Enter with sound</button>
+    <button class="ebtn" id="esilent" data-i18n="ebtn-1">Enter in silence</button>
   </div>
 </div>
 
 <div class="scroll-cue" id="scue">
-  <div class="sc-lbl">Scroll to unfold</div>
+  <div class="sc-lbl" data-i18n="sc-lbl">Scroll to unfold</div>
   <div class="sc-line"></div>
 </div>
 
 <!-- 0 Overture -->
 <section class="scene" data-s="0">
   <div class="si" style="opacity:1;transform:none">
-    <div class="ov-you">You are invited</div>
+    <div class="ov-you" data-i18n="ov-you">You are invited</div>
     <div class="names">
-      <span class="ns">Shaheen</span><span class="amp">&amp;</span><span class="ni">Ingie</span>
+      <span class="ns" data-i18n="ns">Shaheen</span><span class="amp">&amp;</span><span class="ni" data-i18n="ni">Ingie</span>
     </div>
   </div>
 </section>
@@ -202,41 +208,41 @@ body{font-family:var(--serif);background:var(--navy-d);color:var(--ivory);overfl
 <!-- 1 Invocation -->
 <section class="scene" data-s="1">
   <div class="si">
-    <div class="ey">A celebration of two</div>
-    <span class="iline">He of the cedars.</span>
-    <span class="iline">She of the Nile.</span>
-    <span class="iline">Woven, at last, into one.</span>
+    <div class="ey" data-i18n="ey-1">A celebration of two</div>
+    <span class="iline" data-i18n="iline-0">He of the cedars.</span>
+    <span class="iline" data-i18n="iline-1">She of the Nile.</span>
+    <span class="iline" data-i18n="iline-2">Woven, at last, into one.</span>
   </div>
 </section>
 
 <!-- 2 Scratch -->
 <section class="scene" data-s="2">
   <div class="si">
-    <div class="ey">Scratch to unveil</div>
-    <h2 class="ttl">The <em>sacred</em> date</h2>
+    <div class="ey" data-i18n="ey-2">Scratch to unveil</div>
+    <h2 class="ttl" data-i18n="ttl-0">The <em>sacred</em> date</h2>
     <div id="scratch-stage">
       <div id="scratch-bg">
-        <div class="sd-lbl">Save the date</div>
-        <div class="sd-date">November 7, 2026</div>
+        <div class="sd-lbl" data-i18n="sd-lbl">Save the date</div>
+        <div class="sd-date" data-i18n="sd-date">November 7, 2026</div>
         <div class="sd-line"></div>
-        <div class="sd-venue">Holiday Inn · Kuwait City</div>
+        <div class="sd-venue" data-i18n="sd-venue">Holiday Inn · Kuwait City</div>
       </div>
       <canvas id="scratch-cvs"></canvas>
     </div>
-    <div class="hint" id="hint">Scratch to reveal</div>
+    <div class="hint" id="hint" data-i18n="hint">Scratch to reveal</div>
   </div>
 </section>
 
 <!-- 3 Countdown -->
 <section class="scene" data-s="3">
   <div class="si">
-    <div class="ey">Counting the days</div>
-    <h2 class="ttl">Until we say <em>yes</em></h2>
+    <div class="ey" data-i18n="ey-3">Counting the days</div>
+    <h2 class="ttl" data-i18n="ttl-1">Until we say <em>yes</em></h2>
     <div class="cd-grid">
-      <div class="cd-cell"><div class="cd-n" id="cdD">--</div><div class="cd-l">Days</div></div>
-      <div class="cd-cell"><div class="cd-n" id="cdH">--</div><div class="cd-l">Hours</div></div>
-      <div class="cd-cell"><div class="cd-n" id="cdM">--</div><div class="cd-l">Min</div></div>
-      <div class="cd-cell"><div class="cd-n" id="cdS">--</div><div class="cd-l">Sec</div></div>
+      <div class="cd-cell"><div class="cd-n" id="cdD">--</div><div class="cd-l" data-i18n="cd-l-0">Days</div></div>
+      <div class="cd-cell"><div class="cd-n" id="cdH">--</div><div class="cd-l" data-i18n="cd-l-1">Hours</div></div>
+      <div class="cd-cell"><div class="cd-n" id="cdM">--</div><div class="cd-l" data-i18n="cd-l-2">Min</div></div>
+      <div class="cd-cell"><div class="cd-n" id="cdS">--</div><div class="cd-l" data-i18n="cd-l-3">Sec</div></div>
     </div>
   </div>
 </section>
@@ -244,8 +250,8 @@ body{font-family:var(--serif);background:var(--navy-d);color:var(--ivory);overfl
 <!-- 4 Heritage -->
 <section class="scene" data-s="4">
   <div class="si">
-    <div class="ey">Two become one</div>
-    <h2 class="ttl">Cedar and <em>lotus</em></h2>
+    <div class="ey" data-i18n="ey-4">Two become one</div>
+    <h2 class="ttl" data-i18n="ttl-2">Cedar and <em>lotus</em></h2>
     <svg class="heritage-svg" viewBox="0 0 320 220">
       <defs><radialGradient id="hg"><stop offset="0%" stop-color="#E4C16B" stop-opacity=".28"/><stop offset="100%" stop-color="#E4C16B" stop-opacity="0"/></radialGradient></defs>
       <circle cx="160" cy="110" r="90" fill="url(#hg)"/>
@@ -263,18 +269,18 @@ body{font-family:var(--serif);background:var(--navy-d);color:var(--ivory);overfl
       <line x1="100" y1="170" x2="220" y2="170" stroke="#C9A14A" stroke-width=".5" opacity=".6"/>
       <circle cx="100" cy="170" r="1.5" fill="#E4C16B"/><circle cx="220" cy="170" r="1.5" fill="#E4C16B"/><circle cx="160" cy="170" r="2" fill="#E4C16B"/>
     </svg>
-    <p class="bdy">Two families from opposite shores — Beirut's cedars and Alexandria's sea — woven into a single crest.</p>
+    <p class="bdy" data-i18n="bdy">Two families from opposite shores — Beirut's cedars and Alexandria's sea — woven into a single crest.</p>
   </div>
 </section>
 
 <!-- 5 Venue -->
 <section class="scene" data-s="5">
   <div class="si">
-    <div class="ey">Where it begins</div>
-    <h2 class="ttl">The <em>gathering</em></h2>
+    <div class="ey" data-i18n="ey-5">Where it begins</div>
+    <h2 class="ttl" data-i18n="ttl-3">The <em>gathering</em></h2>
     <div class="vc">
-      <div class="vname">Holiday Inn Kuwait</div>
-      <div class="vaddr">Fahed Al-Salem Street · Kuwait City · Kuwait</div>
+      <div class="vname" data-i18n="vname">Holiday Inn Kuwait</div>
+      <div class="vaddr" data-i18n="vaddr">Fahed Al-Salem Street · Kuwait City · Kuwait</div>
       <div class="vmap">
         <svg viewBox="0 0 400 155" preserveAspectRatio="xMidYMid slice">
           <defs><pattern id="mg" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0L0 0 0 40" fill="none" stroke="#C9A14A" stroke-width=".3" opacity=".2"/></pattern></defs>
@@ -288,7 +294,7 @@ body{font-family:var(--serif);background:var(--navy-d);color:var(--ivory);overfl
           </g>
         </svg>
       </div>
-      <a class="vlink" href="https://maps.google.com/?q=Holiday+Inn+Kuwait+City" target="_blank" rel="noopener">Open in Maps</a>
+      <a class="vlink" href="https://maps.google.com/?q=Holiday+Inn+Kuwait+City" target="_blank" rel="noopener" data-i18n="vlink">Open in Maps</a>
     </div>
   </div>
 </section>
@@ -296,8 +302,8 @@ body{font-family:var(--serif);background:var(--navy-d);color:var(--ivory);overfl
 <!-- 6 Schedule -->
 <section class="scene" data-s="6">
   <div class="si">
-    <div class="ey">The evening</div>
-    <h2 class="ttl">A night <em>unfolding</em></h2>
+    <div class="ey" data-i18n="ey-6">The evening</div>
+    <h2 class="ttl" data-i18n="ttl-4">A night <em>unfolding</em></h2>
     <div class="tl">
       <div class="tl-row"><div class="tl-t">5:00 PM</div><div class="tl-b"><h4>Arrival</h4><p>Welcome drinks on the terrace</p></div></div>
       <div class="tl-row"><div class="tl-t">6:30 PM</div><div class="tl-b"><h4>Ceremony</h4><p>Vows beneath the pyramids</p></div></div>
@@ -310,9 +316,9 @@ body{font-family:var(--serif);background:var(--navy-d);color:var(--ivory);overfl
 <!-- 7 Dress Code -->
 <section class="scene" data-s="7">
   <div class="si">
-    <div class="ey">Dress code</div>
-    <h2 class="ttl">Wear the <em>desert</em></h2>
-    <p class="dq">"Something timeless. Something gold."</p>
+    <div class="ey" data-i18n="ey-7">Dress code</div>
+    <h2 class="ttl" data-i18n="ttl-5">Wear the <em>desert</em></h2>
+    <p class="dq" data-i18n="dq">"Something timeless. Something gold."</p>
     <div class="swatches">
       <div class="sw" style="background:#D4BF94"></div>
       <div class="sw" style="background:#F4EDD8"></div>
@@ -320,36 +326,36 @@ body{font-family:var(--serif);background:var(--navy-d);color:var(--ivory);overfl
       <div class="sw" style="background:#14203A"></div>
       <div class="sw" style="background:#6B7248"></div>
     </div>
-    <p class="sm">Traditional attire warmly welcomed</p>
+    <p class="sm" data-i18n="sm-0">Traditional attire warmly welcomed</p>
   </div>
 </section>
 
 <!-- 8 RSVP -->
 <section class="scene" data-s="8">
   <div class="si">
-    <div class="ey">Kindly respond</div>
-    <h2 class="ttl">Your <em>presence</em></h2>
-    <div class="rdl">By October 7, 2026</div>
+    <div class="ey" data-i18n="ey-8">Kindly respond</div>
+    <h2 class="ttl" data-i18n="ttl-6">Your <em>presence</em></h2>
+    <div class="rdl" data-i18n="rdl">By October 7, 2026</div>
     <div class="rw" id="rform">
-      <div class="fg"><label class="lbl">Full name</label><input class="inp" type="text" id="rn" placeholder="—" autocomplete="name"></div>
+      <div class="fg"><label class="lbl" data-i18n="lbl-0">Full name</label><input class="inp" type="text" id="rn" placeholder="—" autocomplete="name"></div>
       <div class="fg">
-        <label class="lbl">Will you attend?</label>
+        <label class="lbl" data-i18n="lbl-1">Will you attend?</label>
         <div class="cr">
-          <div style="position:relative"><input type="radio" name="att" id="ry" value="yes"><label for="ry">Joyfully yes</label></div>
-          <div style="position:relative"><input type="radio" name="att" id="rno" value="no"><label for="rno">With regret</label></div>
+          <div style="position:relative"><input type="radio" name="att" id="ry" value="yes"><label for="ry" data-i18n="ry-lbl">Joyfully yes</label></div>
+          <div style="position:relative"><input type="radio" name="att" id="rno" value="no"><label for="rno" data-i18n="rno-lbl">With regret</label></div>
         </div>
       </div>
-      <div class="fg"><label class="lbl">Guests</label>
+      <div class="fg"><label class="lbl" data-i18n="lbl-2">Guests</label>
         <select class="sel" id="rg">
-          <option>1 guest</option><option>2 guests</option><option>3 guests</option><option>4 guests</option>
+          <option data-i18n="opt-1">1 guest</option><option data-i18n="opt-2">2 guests</option><option data-i18n="opt-3">3 guests</option><option data-i18n="opt-4">4 guests</option>
         </select>
       </div>
-      <div class="fg"><label class="lbl">Dietary notes (optional)</label><input class="inp" type="text" id="rd" placeholder="—"></div>
-      <button class="rbtn" id="rsub">Send my reply</button>
+      <div class="fg"><label class="lbl" data-i18n="lbl-3">Dietary notes (optional)</label><input class="inp" type="text" id="rd" placeholder="—"></div>
+      <button class="rbtn" id="rsub" data-i18n="rbtn">Send my reply</button>
     </div>
     <div class="rdone" id="rdone">
-      <h3>Thank you</h3>
-      <p class="sm">We cannot wait to celebrate with you.</p>
+      <h3 data-i18n="rdone-h3">Thank you</h3>
+      <p class="sm" data-i18n="rdone-p">We cannot wait to celebrate with you.</p>
     </div>
   </div>
 </section>
@@ -357,7 +363,7 @@ body{font-family:var(--serif);background:var(--navy-d);color:var(--ivory);overfl
 <!-- 9 Closing -->
 <section class="scene" data-s="9">
   <div class="si">
-    <div class="ey">With love</div>
+    <div class="ey" data-i18n="ey-9">With love</div>
     <svg class="cemb" viewBox="0 0 180 180">
       <defs><radialGradient id="cg"><stop offset="0%" stop-color="#E4C16B" stop-opacity=".38"/><stop offset="100%" stop-color="#E4C16B" stop-opacity="0"/></radialGradient></defs>
       <circle cx="90" cy="90" r="85" fill="url(#cg)"/>
@@ -373,8 +379,8 @@ body{font-family:var(--serif);background:var(--navy-d);color:var(--ivory);overfl
         <line x1="90" y1="48" x2="90" y2="54"/><line x1="76" y1="54" x2="80" y2="58"/><line x1="104" y1="54" x2="100" y2="58"/>
       </g>
     </svg>
-    <div class="cnames">Shaheen <span class="ca">&amp;</span> Ingie</div>
-    <p class="cmsg">Two shores. One story. We hope you'll be part of it.</p>
+    <div class="cnames" data-i18n="cnames">Shaheen <span class="ca">&amp;</span> Ingie</div>
+    <p class="cmsg" data-i18n="cmsg">Two shores. One story. We hope you'll be part of it.</p>
   </div>
 </section>
 
@@ -398,6 +404,86 @@ var BGS = [
   'radial-gradient(ellipse at 50% 50%,#2F2818,#0F0D07)',
   'radial-gradient(ellipse at 50% 50%,#20283A,#050B17)'
 ];
+
+var lang='en',textMap={};
+var TR={
+  'ov-you':['You are invited','أنت مدعو'],
+  'ns':['Shaheen','شاهين'],
+  'ni':['Ingie','إنجي'],
+  'ey-1':['A celebration of two','احتفال بشخصين'],
+  'iline-0':['He of the cedars.','هو من الأرز.'],
+  'iline-1':['She of the Nile.','هي من النيل.'],
+  'iline-2':['Woven, at last, into one.','منسوجة أخيراً في واحدة.'],
+  'ey-2':['Scratch to unveil','اخدش للكشف'],
+  'ttl-0':['The sacred date','التاريخ المقدس'],
+  'sd-lbl':['Save the date','احفظ التاريخ'],
+  'sd-date':['November 7, 2026','7 نوفمبر 2026'],
+  'sd-venue':['Holiday Inn · Kuwait City','Holiday Inn · مدينة الكويت'],
+  'hint':['Scratch to reveal','اخدش للكشف'],
+  'ey-3':['Counting the days','عد الأيام'],
+  'ttl-1':['Until we say yes','حتى نقول نعم'],
+  'cd-l-0':['Days','أيام'],
+  'cd-l-1':['Hours','ساعات'],
+  'cd-l-2':['Min','دقائق'],
+  'cd-l-3':['Sec','ثوان'],
+  'ey-4':['Two become one','اثنان يصبحان واحداً'],
+  'ttl-2':['Cedar and lotus','الأرز واللوتس'],
+  'bdy':['Two families from opposite shores — Beirut\'s cedars and Alexandria\'s sea — woven into a single crest.','عائلتان من ضفاف متقابلة — أرز بيروت وبحر الإسكندرية — منسوجتان في شعار واحد.'],
+  'ey-5':['Where it begins','حيث يبدأ'],
+  'ttl-3':['The gathering','التجمع'],
+  'vname':['Holiday Inn Kuwait','Holiday Inn الكويت'],
+  'vaddr':['Fahed Al-Salem Street · Kuwait City · Kuwait','شارع فهد السالم · مدينة الكويت · الكويت'],
+  'vlink':['Open in Maps','فتح في الخرائط'],
+  'ey-6':['The evening','المساء'],
+  'ttl-4':['A night unfolding','ليل ينكشف'],
+  'ey-7':['Dress code','الملبس'],
+  'ttl-5':['Wear the desert','ارتدي الصحراء'],
+  'dq':['\"Something timeless. Something gold.\"','\"شيء خالد. شيء ذهبي.\"'],
+  'sm-0':['Traditional attire warmly welcomed','الملابس التقليدية مرحب بها بحرارة'],
+  'ey-8':['Kindly respond','يرجى الرد'],
+  'ttl-6':['Your presence','حضورك'],
+  'rdl':['By October 7, 2026','بحلول 7 أكتوبر 2026'],
+  'lbl-0':['Full name','الاسم الكامل'],
+  'lbl-1':['Will you attend?','هل ستحضر؟'],
+  'ry-lbl':['Joyfully yes','نعم بفرح'],
+  'rno-lbl':['With regret','مع الأسف'],
+  'lbl-2':['Guests','الضيوف'],
+  'lbl-3':['Dietary notes (optional)','ملاحظات غذائية (اختياري)'],
+  'rbtn':['Send my reply','أرسل ردي'],
+  'rdone-h3':['Thank you','شكراً لك'],
+  'rdone-p':['We cannot wait to celebrate with you.','لا نستطيع الانتظار للاحتفال معك.'],
+  'ey-9':['With love','بكل حب'],
+  'cnames':['Shaheen & Ingie','شاهين و إنجي'],
+  'cmsg':['Two shores. One story. We hope you\'ll be part of it.','ضفتان. قصة واحدة. نأمل أن تكون جزءاً منها.'],
+  'sc-lbl':['Scroll to unfold','مرر للكشف'],
+  'ov-title':['A woven invitation','دعوة منسوجة'],
+  'ov-sub':['Best with sound','الأفضل مع الصوت'],
+  'ebtn-0':['Enter with sound','ادخل مع الصوت'],
+  'ebtn-1':['Enter in silence','ادخل في صمت'],
+  'opt-1':['1 guest','ضيف واحد'],
+  'opt-2':['2 guests','ضيفان'],
+  'opt-3':['3 guests','3 ضيوف'],
+  'opt-4':['4 guests','4 ضيوف']
+};
+function storeOriginalText(){
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(!textMap[key]) textMap[key]=el.textContent;
+  });
+}
+function applyLang(lng){
+  lang=lng;
+  document.documentElement.lang=lng;
+  document.documentElement.dir=lng==='ar'?'rtl':'ltr';
+  if(lng==='ar') document.body.style.fontFamily="'Cairo','Cormorant Garamond',serif";
+  else document.body.style.fontFamily="'Cormorant Garamond',serif";
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key=el.getAttribute('data-i18n');
+    if(TR[key]) el.textContent=TR[key][lng==='ar'?1:0];
+  });
+  localStorage.setItem('lang',lng);
+  document.getElementById('lbtn').textContent=lng==='en'?'ع':'EN';
+}
 
 // haptic
 function vib(p){ try{ if(navigator.vibrate) navigator.vibrate(p); }catch(e){} }
@@ -488,6 +574,9 @@ document.getElementById('esilent').onclick=function(){
 document.getElementById('abtn').onclick=function(){
   if(!audioCtx){ initAudio(); if(audioCtx&&audioCtx.state==='suspended') audioCtx.resume(); }
   setSound(!audioOn); vib(12);
+};
+document.getElementById('lbtn').onclick=function(){
+  applyLang(lang==='en'?'ar':'en'); vib(12);
 };
 
 // dots
@@ -668,6 +757,11 @@ function loop(){
   drawStars();
 }
 loop();
+
+// i18n init
+storeOriginalText();
+var savedLang=localStorage.getItem('lang')||'en';
+applyLang(savedLang);
 
 })();
 </script>
