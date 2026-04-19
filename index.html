@@ -646,7 +646,7 @@ document.getElementById('rsub').onclick=function(){
     guests:document.getElementById('rg').value,
     dietary:document.getElementById('rd').value.trim()
   };
-  fetch(SHEET_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})
+  fetch(SHEET_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})
     .catch(function(){})
     .finally(function(){
       document.getElementById('rform').style.display='none';
