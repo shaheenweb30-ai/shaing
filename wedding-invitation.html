@@ -411,29 +411,52 @@ function initAudio(){
   masterGain = audioCtx.createGain();
   masterGain.gain.value = 0;
   masterGain.connect(audioCtx.destination);
-  buildDrone();
+  buildPiano();
 }
-function mkOsc(type, freq, gain){
-  var o = audioCtx.createOscillator(), g = audioCtx.createGain();
-  o.type = type; o.frequency.value = freq; g.gain.value = gain;
-  o.connect(g); g.connect(masterGain); o.start(); return {o:o,g:g};
+var pianoRev=null,pianoTimer=null;
+function buildPiano(){
+  pianoRev=audioCtx.createDelay(4); pianoRev.delayTime.value=2.0;
+  var rf=audioCtx.createGain(); rf.gain.value=0.36;
+  var rm=audioCtx.createGain(); rm.gain.value=0.22;
+  pianoRev.connect(rf); rf.connect(pianoRev); pianoRev.connect(rm); rm.connect(masterGain);
+  var bo=audioCtx.createOscillator(),bg=audioCtx.createGain();
+  bo.type='sine'; bo.frequency.value=110; bg.gain.value=0.018;
+  bo.connect(bg); bg.connect(masterGain); bo.start();
+  schedulePiano();
 }
-function buildDrone(){
-  mkOsc('sine',110,.08); mkOsc('sine',110.4,.06); mkOsc('sine',165,.038);
-  var breath = audioCtx.createOscillator(); breath.type='sine'; breath.frequency.value=330;
-  var lfo = audioCtx.createOscillator(); lfo.type='sine'; lfo.frequency.value=0.18;
-  var lg = audioCtx.createGain(); lg.gain.value=1.1;
-  lfo.connect(lg); lg.connect(breath.frequency);
-  var bg = audioCtx.createGain(); bg.gain.value=0.02;
-  breath.connect(bg); bg.connect(masterGain);
-  breath.start(); lfo.start();
-  mkOsc('sine',660,.009);
-  var del=audioCtx.createDelay(4); del.delayTime.value=2.5;
-  var fb=audioCtx.createGain(); fb.gain.value=0.22;
-  var dIn=audioCtx.createGain(); dIn.gain.value=0.12;
-  del.connect(fb); fb.connect(del); del.connect(dIn); dIn.connect(masterGain);
-  var filt=audioCtx.createBiquadFilter(); filt.type='lowpass'; filt.frequency.value=820;
-  bg.connect(filt); filt.connect(dIn);
+function pianoNote(freq,t,dur,vel){
+  var o1=audioCtx.createOscillator(),o2=audioCtx.createOscillator();
+  var fi=audioCtx.createBiquadFilter(),g=audioCtx.createGain();
+  o1.type='triangle'; o1.frequency.value=freq;
+  o2.type='sine'; o2.frequency.value=freq*2.001;
+  fi.type='lowpass'; fi.frequency.value=Math.min(freq*7,5000);
+  o1.connect(fi); o2.connect(fi); fi.connect(g);
+  g.connect(masterGain); if(pianoRev) g.connect(pianoRev);
+  var v=vel||0.09;
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(v,t+0.012);
+  g.gain.exponentialRampToValueAtTime(v*0.18,t+0.5); g.gain.exponentialRampToValueAtTime(0.0001,t+dur);
+  o1.start(t); o1.stop(t+dur+0.1); o2.start(t); o2.stop(t+dur+0.1);
+}
+function schedulePiano(){
+  if(!audioCtx) return;
+  var t=audioCtx.currentTime+0.1,BT=60/72,BAR=BT*4;
+  var prog=[
+    {b:110,   ns:[220,261.63,329.63,440]},
+    {b:174.61,ns:[220,261.63,349.23,440]},
+    {b:130.81,ns:[261.63,329.63,392,523.25]},
+    {b:196,   ns:[246.94,293.66,392,493.88]}
+  ];
+  prog.forEach(function(ch,ci){
+    var s=t+ci*BAR;
+    pianoNote(ch.b,    s,        BAR*.88,0.080);
+    pianoNote(ch.ns[0],s,        BAR*.75,0.062);
+    pianoNote(ch.ns[1],s+BT*.5, BT*1.9, 0.058);
+    pianoNote(ch.ns[2],s+BT*1.0,BT*1.7, 0.054);
+    pianoNote(ch.ns[3],s+BT*1.5,BT*1.5, 0.048);
+    pianoNote(ch.ns[2],s+BT*2.5,BT*1.2, 0.044);
+    pianoNote(ch.ns[1],s+BT*3.0,BT*0.9, 0.040);
+  });
+  pianoTimer=setTimeout(function(){if(audioOn&&audioCtx)schedulePiano();},(BAR*4-0.4)*1000);
 }
 function pluck(freq,dur){
   if(!audioCtx||!audioOn) return;
@@ -610,11 +633,26 @@ function tick(){
 tick(); setInterval(tick,1000);
 
 // rsvp
+var SHEET_URL='https://script.google.com/macros/s/AKfycbxnZr5h_0ClS2s7eAtGRu4e8IVJYNGVKNBcCQS7owmnDVRS9q46Wx0GKWo_F4guoatf6Q/exec';
 document.getElementById('rsub').onclick=function(){
-  if(!document.getElementById('rn').value.trim()||!document.querySelector('input[name="att"]:checked')){vib([22,38,22]);alert('Please enter your name and attendance.');return;}
-  document.getElementById('rform').style.display='none';
-  document.getElementById('rdone').classList.add('on');
-  vib([55,38,95,38,55]); pluck(523.25,1.9); setTimeout(function(){pluck(659.25,1.7);},300);
+  var name=document.getElementById('rn').value.trim();
+  var att=document.querySelector('input[name="att"]:checked');
+  if(!name||!att){vib([22,38,22]);alert('Please enter your name and attendance.');return;}
+  var btn=document.getElementById('rsub');
+  btn.disabled=true; btn.style.opacity='.6';
+  var payload={
+    name:name,
+    attending:att.value,
+    guests:document.getElementById('rg').value,
+    dietary:document.getElementById('rd').value.trim()
+  };
+  fetch(SHEET_URL,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify(payload)})
+    .catch(function(){})
+    .finally(function(){
+      document.getElementById('rform').style.display='none';
+      document.getElementById('rdone').classList.add('on');
+      vib([55,38,95,38,55]); pluck(523.25,1.9); setTimeout(function(){pluck(659.25,1.7);},300);
+    });
 };
 
 // resize
